@@ -64,7 +64,7 @@ TEXTOS = {
             "Pelotón entre carteles con flechas en Camino Negro",
             "Viaducto de Puente La Noria visto desde un dron",
         ],
-        "cerrar": "Cerrar", "saltar": "Saltar al contenido",
+        "cerrar": "Cerrar", "saltar": "Saltar al contenido", "menu": "Abrir el menú",
         "prensa_t": "Prensa y publishers",
         "prensa_intro": "¿Escribís sobre juegos o publicás juegos? Escribinos y te mandamos el press kit, el pitch deck o una build para probar.",
         "ficha": [
@@ -124,7 +124,7 @@ TEXTOS = {
             "Pack of cars between arrow signs in Camino Negro",
             "The Puente La Noria overpass seen from a drone",
         ],
-        "cerrar": "Close", "saltar": "Skip to content",
+        "cerrar": "Close", "saltar": "Skip to content", "menu": "Open menu",
         "prensa_t": "Press & publishers",
         "prensa_intro": "Writing about games or publishing them? Get in touch and we'll send you the press kit, our pitch deck or a build to try.",
         "ficha": [
@@ -284,10 +284,13 @@ def pagina(t):
 <a class="saltar" href="#juego">{e(t['saltar'])}</a>
 <header class="barra">
   <a class="marca" href="#inicio"><img src="{b}assets/img/logo_600.webp" alt="Conurban Streets" width="600" height="194"></a>
-  <nav>
-    <a href="#juego">{e(n[0])}</a><a href="#galeria">{e(n[1])}</a><a href="#prensa">{e(n[2])}</a><a href="#sumate">{e(n[3])}</a>
+  <div class="acciones">
+    <nav class="menu" id="menu">
+      <a href="#juego">{e(n[0])}</a><a href="#galeria">{e(n[1])}</a><a href="#prensa">{e(n[2])}</a><a href="#sumate">{e(n[3])}</a>
+    </nav>
     <a class="idioma" href="{t['otro']}" hreflang="{'en' if t['lang'] != 'en' else 'es'}">{t['otro_txt']}</a>
-  </nav>
+    <button class="hamburguesa" type="button" aria-expanded="false" aria-controls="menu" aria-label="{e(t['menu'])}"><span></span><span></span><span></span></button>
+  </div>
 </header>
 
 <main>
@@ -390,6 +393,13 @@ def pagina(t):
     grande.src = b.dataset.grande; grande.alt = b.getAttribute('aria-label'); visor.showModal();
   }}));
   visor.addEventListener('click', ev => {{ if (ev.target === visor) visor.close(); }});
+  // Menú hamburguesa (celular)
+  const boton = document.querySelector('.hamburguesa'), cabecera = document.querySelector('.barra');
+  const menu = abierto => {{ cabecera.classList.toggle('abierta', abierto); boton.setAttribute('aria-expanded', abierto); }};
+  boton.addEventListener('click', () => menu(!cabecera.classList.contains('abierta')));
+  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => menu(false)));
+  document.addEventListener('keydown', ev => {{ if (ev.key === 'Escape') menu(false); }});
+  matchMedia('(min-width: 721px)').addEventListener('change', ev => {{ if (ev.matches) menu(false); }});
   // La barra toma fondo y muestra el logo chico al bajar de la portada
   const barra = document.querySelector('.barra'), hero = document.querySelector('.hero');
   new IntersectionObserver(([en]) => barra.classList.toggle('abajo', !en.isIntersecting), {{ rootMargin: '-80px 0px 0px 0px' }}).observe(hero);

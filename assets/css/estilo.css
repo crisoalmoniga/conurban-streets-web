@@ -39,12 +39,43 @@ a:hover { color: var(--rosa); }
 .barra .marca img { width: 150px; }
 .barra.abajo { background: rgba(6, 1, 7, .92); }
 .barra.abajo .marca { opacity: 1; }
-.barra nav { display: flex; gap: 18px; align-items: center; font-size: 15px; }
-.barra nav a { color: var(--crema); text-decoration: none; }
-.barra nav a:hover { color: var(--naranja); }
-.barra .idioma { border: 1px solid var(--crema); border-radius: 4px; padding: 2px 8px; }
+.barra .acciones { display: flex; align-items: center; gap: 18px; }
+.barra .menu { display: flex; gap: 18px; align-items: center; font-size: 15px; }
+.barra .menu a { color: var(--crema); text-decoration: none; }
+.barra .menu a:hover { color: var(--naranja); }
+.barra .idioma {
+  color: var(--crema); text-decoration: none; font-size: 15px;
+  border: 1px solid var(--crema); border-radius: 4px; padding: 2px 8px;
+}
+.barra .idioma:hover { color: var(--naranja); border-color: var(--naranja); }
+.hamburguesa { display: none; }
+
+/* Celular: menú hamburguesa */
 @media (max-width: 720px) {
-  .barra nav a:not(.idioma) { display: none; }
+  .barra { padding: 8px 12px; }
+  .barra .marca img { width: 120px; }
+  .barra .acciones { gap: 10px; }
+  .barra .idioma { padding: 6px 10px; }
+  .hamburguesa {
+    display: grid; place-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 0; cursor: pointer;
+    background: transparent; border: 1px solid var(--crema); border-radius: 4px;
+  }
+  .hamburguesa span { display: block; width: 22px; height: 2px; background: var(--crema); transition: transform .25s, opacity .25s; }
+  .barra.abierta .hamburguesa span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .barra.abierta .hamburguesa span:nth-child(2) { opacity: 0; }
+  .barra.abierta .hamburguesa span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .barra .menu {
+    display: none;
+    position: fixed; top: 60px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: rgba(6, 1, 7, .97); border-top: 3px solid var(--naranja);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .5);
+  }
+  .barra .menu a { padding: 16px 20px; font-size: 20px; font-weight: 700; border-bottom: 1px solid rgba(231, 225, 201, .12); }
+  .barra.abierta { background: rgba(6, 1, 7, .97); }
+  .barra.abierta .marca { opacity: 1; }
+  .barra.abierta .menu { display: flex; }
 }
 
 /* Portada con el video */
@@ -64,7 +95,8 @@ a:hover { color: var(--rosa); }
 }
 .hero .logo { width: min(760px, 92vw); margin: 0 auto 8px; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .6)); }
 .hero .lema { font-size: clamp(20px, 3.4vw, 30px); margin: 18px 0 6px; }
-.hero .bajada { color: var(--rosa); margin: 0 0 28px; }
+.hero .bajada { color: var(--rosa); margin: 0 0 28px; text-wrap: balance; }
+.hero .lema, .intro, section h2 { text-wrap: balance; }
 
 .tira {
   display: inline-block; background: var(--crema); color: var(--purpura);
@@ -140,7 +172,29 @@ dialog.visor button { background: none; border: 0; color: var(--crema); font: in
 
 footer { padding: 32px 16px; text-align: center; font-size: 15px; color: var(--rosa); background: var(--negro); }
 
+/* Celular: espacios, botones y grillas */
+@media (max-width: 720px) {
+  body { font-size: 17px; }
+  section { padding: 52px 0; }
+  section h2 { margin-bottom: 24px; }
+  .hero { padding: 84px 16px 48px; }
+  .hero .lema { margin-top: 14px; }
+  .hero .bajada { font-size: 15px; margin-bottom: 22px; }
+  .botones { flex-direction: column; align-items: center; }
+  .botones .boton { width: min(320px, 100%); text-align: center; }
+  .boton { padding: 14px 20px; }
+  .pilares, .pistas { gap: 16px; }
+  .galeria { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .prensa { gap: 20px; }
+  .redes .boton { flex: 1 1 140px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .ficha { grid-template-columns: 1fr; gap: 2px; }
+  .ficha dd { margin-bottom: 10px; }
+  .prensa .boton { display: block; text-align: center; overflow-wrap: anywhere; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .galeria img { transition: none; }
+  .galeria img, .hamburguesa span { transition: none; }
 }

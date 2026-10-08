@@ -5,14 +5,14 @@ Página del juego con sección de prensa. Sitio estático: no necesita servidor 
 - `index.html` (castellano) y `en/index.html` (inglés) **se generan**: no editarlos a mano.
 - Textos de los dos idiomas: `fuente/build.py` (diccionario `TEXTOS`).
 - Estilos: `assets/css/estilo.css` (colores del brand book).
-- Press kit: **no se publica en el sitio**. `fuente/presskit.py` lo arma en Drive (`Marketing/Prensa/conurban-streets-presskit.zip`) con el logo, el key art, las capturas de `Marketing/Steam/capturas` y la ficha, para mandarlo por mail a quien lo pida. La página tiene un botón que abre un mail de pedido.
+- Press kit: **no se publica en el sitio**. `fuente/presskit.py` lo arma en Drive (`Marketing/Kit de marketing/06 Prensa y presentaciones`) con el logo, el key art, las capturas de `Marketing/Steam/capturas` y la ficha, para mandarlo por mail a quien lo pida. La página tiene un botón que abre un mail de pedido.
 
 ## Actualizar
 
 ```bash
 python fuente/build.py     # página en los dos idiomas + 404, manifiesto, robots.txt y sitemap.xml
 python fuente/iconos.py    # favicon e íconos (solo si cambia el logo)
-python fuente/presskit.py  # press kit en Drive
+python fuente/presskit.py  # press kit en Drive (Kit de marketing)
 ```
 
 Para verla en la compu: `python -m http.server 8765` y abrir http://localhost:8765

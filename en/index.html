@@ -35,16 +35,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geom:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/estilo.css?v=d8a1e5d7">
+<link rel="stylesheet" href="../assets/css/estilo.css?v=4a752f48">
 </head>
 <body>
 <a class="saltar" href="#juego">Skip to content</a>
 <header class="barra">
   <a class="marca" href="#inicio"><img src="../assets/img/logo_600.webp" alt="Conurban Streets" width="600" height="194"></a>
-  <nav>
-    <a href="#juego">The game</a><a href="#galeria">Gallery</a><a href="#prensa">Press</a><a href="#sumate">Collaborate</a>
+  <div class="acciones">
+    <nav class="menu" id="menu">
+      <a href="#juego">The game</a><a href="#galeria">Gallery</a><a href="#prensa">Press</a><a href="#sumate">Collaborate</a>
+    </nav>
     <a class="idioma" href="../" hreflang="es">ES</a>
-  </nav>
+    <button class="hamburguesa" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
 </header>
 
 <main>
@@ -165,6 +168,13 @@
     grande.src = b.dataset.grande; grande.alt = b.getAttribute('aria-label'); visor.showModal();
   }));
   visor.addEventListener('click', ev => { if (ev.target === visor) visor.close(); });
+  // Menú hamburguesa (celular)
+  const boton = document.querySelector('.hamburguesa'), cabecera = document.querySelector('.barra');
+  const menu = abierto => { cabecera.classList.toggle('abierta', abierto); boton.setAttribute('aria-expanded', abierto); };
+  boton.addEventListener('click', () => menu(!cabecera.classList.contains('abierta')));
+  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => menu(false)));
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') menu(false); });
+  matchMedia('(min-width: 721px)').addEventListener('change', ev => { if (ev.matches) menu(false); });
   // La barra toma fondo y muestra el logo chico al bajar de la portada
   const barra = document.querySelector('.barra'), hero = document.querySelector('.hero');
   new IntersectionObserver(([en]) => barra.classList.toggle('abajo', !en.isIntersecting), { rootMargin: '-80px 0px 0px 0px' }).observe(hero);

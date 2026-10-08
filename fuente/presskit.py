@@ -1,5 +1,5 @@
 """
-Arma el press kit para mandar por mail: Drive > Marketing > Prensa > conurban-streets-presskit.zip
+Arma el press kit para mandar por mail: Drive > Marketing > Kit de marketing > 06 Prensa y presentaciones
 (logo, capturas en 1920x1080 y la ficha con descripciones en castellano e inglés).
 
 Uso: python fuente/presskit.py
@@ -14,7 +14,7 @@ CAPTURAS = Path(r"G:\Mi unidad\Conurban Streets\Marketing\Steam\capturas")
 LOGO = Path(r"G:\Mi unidad\Conurban Streets\Marketing\Pitch deck\fuente\assets\marca.png")
 PORTADA = Path(r"G:\Mi unidad\Conurban Streets\Marketing\Pitch deck\fuente\assets\portada.png")
 # Va a Drive y no al sitio: el press kit se manda por mail a quien lo pide, no se publica.
-SALIDA = Path(r"G:\Mi unidad\Conurban Streets\Marketing\Prensa\conurban-streets-presskit.zip")
+SALIDA = Path(r"G:\Mi unidad\Conurban Streets\Marketing\Kit de marketing\06 Prensa y presentaciones\conurban-streets-presskit.zip")
 PURPURA = (53, 7, 44)
 
 FICHA = """CONURBAN STREETS - PRESS KIT
