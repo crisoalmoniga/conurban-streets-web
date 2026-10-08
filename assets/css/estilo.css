@@ -1,0 +1,132 @@
+/* Conurban Streets — sitio del juego. Colores del brand book. */
+:root {
+  --crema: #E7E1C9;
+  --purpura: #35072C;
+  --asfalto: #1D140D;
+  --negro: #060107;
+  --naranja: #E69B1E;
+  --rosa: #CE96C8;
+  --rojo: #8B150C;
+  --magenta: #6F1955;
+  --ancho: 1120px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--purpura);
+  color: var(--crema);
+  font-family: "Geom", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+}
+img, video { display: block; max-width: 100%; height: auto; }
+a { color: var(--naranja); }
+a:hover { color: var(--rosa); }
+
+.contenedor { width: min(var(--ancho), 100% - 32px); margin-inline: auto; }
+
+/* Barra superior */
+.barra {
+  position: fixed; inset: 0 0 auto 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 10px 16px;
+  background: linear-gradient(rgba(6, 1, 7, .7), transparent);
+  transition: background .3s;
+}
+.barra .marca { opacity: 0; transition: opacity .3s; }
+.barra .marca img { width: 150px; }
+.barra.abajo { background: rgba(6, 1, 7, .92); }
+.barra.abajo .marca { opacity: 1; }
+.barra nav { display: flex; gap: 18px; align-items: center; font-size: 15px; }
+.barra nav a { color: var(--crema); text-decoration: none; }
+.barra nav a:hover { color: var(--naranja); }
+.barra .idioma { border: 1px solid var(--crema); border-radius: 4px; padding: 2px 8px; }
+@media (max-width: 720px) {
+  .barra nav a:not(.idioma) { display: none; }
+}
+
+/* Portada con el video */
+.hero {
+  position: relative; min-height: 100svh;
+  display: grid; place-items: center; text-align: center;
+  overflow: hidden; padding: 96px 16px 64px;
+}
+.hero video {
+  position: absolute; inset: 0; width: 100%; height: 100% !important; object-fit: cover; z-index: -2;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse at center, rgba(53, 7, 44, .35), rgba(6, 1, 7, .85) 75%),
+    linear-gradient(transparent 60%, var(--purpura));
+}
+.hero .logo { width: min(760px, 92vw); margin: 0 auto 8px; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .6)); }
+.hero .lema { font-size: clamp(20px, 3.4vw, 30px); margin: 18px 0 6px; }
+.hero .bajada { color: var(--rosa); margin: 0 0 28px; }
+
+.tira {
+  display: inline-block; background: var(--crema); color: var(--purpura);
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 14px; transform: rotate(-2deg);
+  box-shadow: 4px 4px 0 var(--negro);
+}
+
+.botones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.boton {
+  display: inline-block; padding: 12px 22px; border-radius: 4px;
+  font-weight: 700; text-decoration: none;
+  background: var(--naranja); color: var(--negro);
+  box-shadow: 4px 4px 0 var(--negro);
+}
+.boton:hover { background: var(--rosa); color: var(--negro); }
+.boton.secundario { background: transparent; color: var(--crema); border: 2px solid var(--crema); box-shadow: none; }
+.boton.secundario:hover { border-color: var(--naranja); color: var(--naranja); }
+
+/* Secciones */
+section { padding: 72px 0; scroll-margin-top: 64px; }
+section h2 { margin: 0 0 32px; font-size: clamp(26px, 4vw, 38px); line-height: 1.1; }
+section h2 .tira { font-size: inherit; }
+.alterna { background: var(--asfalto); }
+.intro { font-size: clamp(19px, 2.4vw, 22px); max-width: 760px; margin: 0 0 36px; }
+
+.pilares { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.pilar {
+  background: rgba(111, 25, 85, .35); border-top: 4px solid var(--naranja);
+  padding: 20px; border-radius: 4px;
+}
+.pilar h3 { margin: 0 0 8px; color: var(--naranja); font-size: 21px; }
+.pilar p { margin: 0; }
+
+.pistas { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.pista img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; border-radius: 4px; }
+.pista h3 { margin: 12px 0 4px; }
+.pista p { margin: 0; color: var(--rosa); }
+
+.galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.galeria button { padding: 0; border: 0; background: none; cursor: zoom-in; }
+.galeria img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; border-radius: 4px; transition: transform .2s; }
+.galeria button:hover img, .galeria button:focus-visible img { transform: scale(1.03); }
+.nota { margin-top: 20px; color: var(--rosa); }
+
+dialog.visor { padding: 0; border: 0; background: transparent; max-width: 96vw; }
+dialog.visor::backdrop { background: rgba(6, 1, 7, .92); }
+dialog.visor img { max-height: 88vh; width: auto; }
+dialog.visor form { text-align: right; }
+dialog.visor button { background: none; border: 0; color: var(--crema); font: inherit; font-size: 28px; cursor: pointer; }
+
+.prensa { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; align-items: start; }
+.ficha { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; }
+.ficha dt { color: var(--naranja); font-weight: 700; }
+.ficha dd { margin: 0; }
+
+
+.redes { display: flex; flex-wrap: wrap; gap: 12px; }
+
+footer { padding: 32px 16px; text-align: center; font-size: 15px; color: var(--rosa); background: var(--negro); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .galeria img { transition: none; }
+}
