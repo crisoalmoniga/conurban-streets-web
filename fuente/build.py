@@ -4,6 +4,7 @@ Los textos de cada idioma están en TEXTOS; la estructura, en PLANTILLA.
 
 Uso: python fuente/build.py
 """
+import hashlib
 import json
 from html import escape
 from pathlib import Path
@@ -12,6 +13,8 @@ from urllib.parse import urlparse
 RAIZ = Path(__file__).resolve().parent.parent
 URL = "https://crisoalmoniga.github.io/conurban-streets-web"  # cambiar por el dominio cuando esté (tarjeta 38)
 MAIL = "conurbanstreets@gmail.com"
+# Versión de la hoja de estilos: cambia con su contenido, así el navegador no usa una copia vieja.
+VERSION_CSS = hashlib.md5((RAIZ / "assets" / "css" / "estilo.css").read_bytes()).hexdigest()[:8]
 INSTAGRAM = "https://www.instagram.com/conurbanstreets/"
 TIKTOK = "https://www.tiktok.com/@conurbanstreets"
 LINKTREE = "https://linktr.ee/conurbanstreets"
@@ -183,7 +186,7 @@ def extras():
 <meta name="theme-color" content="#35072C">
 <link rel="icon" href="{base}favicon.ico" sizes="48x48">
 <link href="https://fonts.googleapis.com/css2?family=Geom:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{base}assets/css/estilo.css">
+<link rel="stylesheet" href="{base}assets/css/estilo.css?v={VERSION_CSS}">
 </head>
 <body>
 <main class="perdido">
@@ -275,7 +278,7 @@ def pagina(t):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geom:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{b}assets/css/estilo.css">
+<link rel="stylesheet" href="{b}assets/css/estilo.css?v={VERSION_CSS}">
 </head>
 <body>
 <a class="saltar" href="#juego">{e(t['saltar'])}</a>
