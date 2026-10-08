@@ -124,6 +124,20 @@ dialog.visor button { background: none; border: 0; color: var(--crema); font: in
 
 .redes { display: flex; flex-wrap: wrap; gap: 12px; }
 
+/* Enlace para saltar al contenido con teclado */
+.saltar {
+  position: absolute; left: 12px; top: -60px; z-index: 20;
+  background: var(--naranja); color: var(--negro); padding: 8px 14px; font-weight: 700; border-radius: 4px;
+}
+.saltar:focus { top: 12px; }
+
+/* Página 404 */
+.perdido { min-height: 100svh; display: grid; place-content: center; justify-items: center; gap: 8px; text-align: center; padding: 32px 16px; }
+.perdido img { width: min(420px, 80vw); }
+.perdido h1 { margin: 16px 0; font-size: 48px; }
+.perdido p { margin: 4px 0; }
+.perdido .boton { margin: 16px 6px 0; }
+
 footer { padding: 32px 16px; text-align: center; font-size: 15px; color: var(--rosa); background: var(--negro); }
 
 @media (prefers-reduced-motion: reduce) {

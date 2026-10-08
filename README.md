@@ -10,8 +10,9 @@ Página del juego con sección de prensa. Sitio estático: no necesita servidor 
 ## Actualizar
 
 ```bash
-python fuente/build.py
-python fuente/presskit.py
+python fuente/build.py     # página en los dos idiomas + 404, manifiesto, robots.txt y sitemap.xml
+python fuente/iconos.py    # favicon e íconos (solo si cambia el logo)
+python fuente/presskit.py  # press kit en Drive
 ```
 
 Para verla en la compu: `python -m http.server 8765` y abrir http://localhost:8765
@@ -25,7 +26,7 @@ Opción A, GitHub Pages:
 
 Opción B, Cloudflare Pages: conectar el repositorio, sin comando de build y con la raíz como carpeta de salida.
 
-Cuando esté el dominio (tarjeta 38), apuntarlo al sitio y cambiar `URL` en `fuente/build.py` (lo usan los links para compartir y la imagen de vista previa).
+Cuando esté el dominio (tarjeta 38), apuntarlo al sitio y cambiar `URL` en `fuente/build.py`: la usan los links para compartir, la imagen de vista previa, el sitemap, el manifiesto y la página 404. Mientras el sitio esté en `github.io/conurban-streets-web`, los buscadores no leen el `robots.txt` (solo lo buscan en la raíz del dominio); con el dominio propio empieza a contar.
 
 ## Pendiente
 

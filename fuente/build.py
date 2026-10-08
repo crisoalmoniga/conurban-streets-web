@@ -4,8 +4,10 @@ Los textos de cada idioma están en TEXTOS; la estructura, en PLANTILLA.
 
 Uso: python fuente/build.py
 """
+import json
 from html import escape
 from pathlib import Path
+from urllib.parse import urlparse
 
 RAIZ = Path(__file__).resolve().parent.parent
 URL = "https://crisoalmoniga.github.io/conurban-streets-web"  # cambiar por el dominio cuando esté (tarjeta 38)
@@ -23,6 +25,8 @@ CAPTURAS = [
 TEXTOS = {
     "es": {
         "lang": "es-AR", "base": "", "otro": "en/", "otro_txt": "EN",
+        "og_locale": "es_AR", "og_locale_otro": "en_US",
+        "og_alt": "Logo de Conurban Streets sobre un auto tuneado con fuego en una pista del conurbano",
         "titulo": "Conurban Streets – Carreras arcade en el conurbano",
         "desc": "Carreras arcade para PC en un conurbano bonaerense retrofuturista. Cyberpunk, pero del conurbano. Próximamente en Steam.",
         "nav": ["El juego", "Galería", "Prensa", "Colaborá"],
@@ -57,7 +61,7 @@ TEXTOS = {
             "Pelotón entre carteles con flechas en Camino Negro",
             "Viaducto de Puente La Noria visto desde un dron",
         ],
-        "cerrar": "Cerrar",
+        "cerrar": "Cerrar", "saltar": "Saltar al contenido",
         "prensa_t": "Prensa y publishers",
         "prensa_intro": "¿Escribís sobre juegos o publicás juegos? Escribinos y te mandamos el press kit, el pitch deck o una build para probar.",
         "ficha": [
@@ -81,6 +85,8 @@ TEXTOS = {
     },
     "en": {
         "lang": "en", "base": "../", "otro": "../", "otro_txt": "ES",
+        "og_locale": "en_US", "og_locale_otro": "es_AR",
+        "og_alt": "Conurban Streets logo over a tuned car shooting flames on a suburban race track",
         "titulo": "Conurban Streets – Arcade racing in the Buenos Aires suburbs",
         "desc": "Arcade racing for PC in a retro-futuristic Buenos Aires suburb. Cyberpunk, but from the conurbano. Coming soon to Steam.",
         "nav": ["The game", "Gallery", "Press", "Collaborate"],
@@ -115,7 +121,7 @@ TEXTOS = {
             "Pack of cars between arrow signs in Camino Negro",
             "The Puente La Noria overpass seen from a drone",
         ],
-        "cerrar": "Close",
+        "cerrar": "Close", "saltar": "Skip to content",
         "prensa_t": "Press & publishers",
         "prensa_intro": "Writing about games or publishing them? Get in touch and we'll send you the press kit, our pitch deck or a build to try.",
         "ficha": [
@@ -144,6 +150,79 @@ def mailto(asunto):
     return f"mailto:{MAIL}?subject={escape(asunto).replace(' ', '%20')}"
 
 
+def datos_estructurados(t, canon):
+    """Ficha del juego para buscadores (schema.org/VideoGame)."""
+    datos = {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Conurban Streets",
+        "url": canon,
+        "description": t["desc"],
+        "image": f"{URL}/assets/img/og.jpg",
+        "inLanguage": t["lang"],
+        "genre": ["Racing", "Arcade"],
+        "gamePlatform": "PC",
+        "operatingSystem": "Windows",
+        "playMode": "SinglePlayer",
+        "author": {"@type": "Organization", "name": "Lado Positivo Games", "email": MAIL},
+        "sameAs": [INSTAGRAM, TIKTOK],
+    }
+    return json.dumps(datos, ensure_ascii=False)
+
+
+def extras():
+    """Archivos que acompañan a la página: 404, manifiesto, robots, sitemap y .nojekyll."""
+    base = urlparse(URL).path.rstrip("/") + "/"
+    (RAIZ / "404.html").write_text(f"""<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página no encontrada – Conurban Streets</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#35072C">
+<link rel="icon" href="{base}favicon.ico" sizes="48x48">
+<link href="https://fonts.googleapis.com/css2?family=Geom:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{base}assets/css/estilo.css">
+</head>
+<body>
+<main class="perdido">
+  <img src="{base}assets/img/logo_600.webp" alt="Conurban Streets" width="600" height="194">
+  <h1><span class="tira">404</span></h1>
+  <p>Esta calle no existe. Capaz que doblaste donde no era.</p>
+  <p lang="en">This street doesn't exist. Looks like you took a wrong turn.</p>
+  <p><a class="boton" href="{base}">Volver al inicio</a> <a class="boton secundario" href="{base}en/">Home (English)</a></p>
+</main>
+</body>
+</html>
+""", encoding="utf-8")
+    manifiesto = {
+        "name": "Conurban Streets",
+        "short_name": "Conurban",
+        "description": TEXTOS["es"]["desc"],
+        "start_url": base,
+        "scope": base,
+        "display": "browser",
+        "background_color": "#35072C",
+        "theme_color": "#35072C",
+        "icons": [
+            {"src": f"{base}assets/img/icon-192.png", "sizes": "192x192", "type": "image/png"},
+            {"src": f"{base}assets/img/icon-512.png", "sizes": "512x512", "type": "image/png"},
+            {"src": f"{base}assets/img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+        ],
+    }
+    (RAIZ / "site.webmanifest").write_text(json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
+    (RAIZ / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {URL}/sitemap.xml\n", encoding="utf-8")
+    alternos = (f'    <xhtml:link rel="alternate" hreflang="es" href="{URL}/"/>\n'
+                f'    <xhtml:link rel="alternate" hreflang="en" href="{URL}/en/"/>\n')
+    urls = "".join(f"  <url>\n    <loc>{URL}{p}</loc>\n{alternos}  </url>\n" for p in ("/", "/en/"))
+    (RAIZ / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        f"{urls}</urlset>\n", encoding="utf-8")
+    (RAIZ / ".nojekyll").write_text("", encoding="utf-8")
+
+
 def pagina(t):
     b = t["base"]
     e = escape
@@ -169,20 +248,37 @@ def pagina(t):
 <link rel="canonical" href="{canon}">
 <link rel="alternate" hreflang="es" href="{URL}/">
 <link rel="alternate" hreflang="en" href="{URL}/en/">
+<link rel="alternate" hreflang="x-default" href="{URL}/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Conurban Streets">
 <meta property="og:title" content="Conurban Streets">
 <meta property="og:description" content="{e(t['desc'])}">
 <meta property="og:image" content="{URL}/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(t['og_alt'])}">
 <meta property="og:url" content="{canon}">
+<meta property="og:locale" content="{t['og_locale']}">
+<meta property="og:locale:alternate" content="{t['og_locale_otro']}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Conurban Streets">
+<meta name="twitter:description" content="{e(t['desc'])}">
+<meta name="twitter:image" content="{URL}/assets/img/og.jpg">
 <meta name="theme-color" content="#35072C">
-<link rel="icon" href="{b}assets/img/favicon.png">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="{b}favicon.ico" sizes="48x48">
+<link rel="icon" href="{b}assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="{b}assets/img/apple-touch-icon.png">
+<link rel="manifest" href="{b}site.webmanifest">
+<link rel="preload" as="image" href="{b}assets/video/loop_poster.jpg">
+<script type="application/ld+json">{datos_estructurados(t, canon)}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geom:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{b}assets/css/estilo.css">
 </head>
 <body>
+<a class="saltar" href="#juego">{e(t['saltar'])}</a>
 <header class="barra">
   <a class="marca" href="#inicio"><img src="{b}assets/img/logo_600.webp" alt="Conurban Streets" width="600" height="194"></a>
   <nav>
@@ -307,7 +403,8 @@ def main():
     (RAIZ / "en").mkdir(exist_ok=True)
     en = pagina(TEXTOS["en"]).replace("Discord y más", "Discord & more")
     (RAIZ / "en" / "index.html").write_text(en, encoding="utf-8")
-    print("index.html y en/index.html generados")
+    extras()
+    print("index.html, en/index.html, 404.html, site.webmanifest, robots.txt y sitemap.xml generados")
 
 
 if __name__ == "__main__":
