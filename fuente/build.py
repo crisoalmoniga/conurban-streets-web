@@ -8,7 +8,7 @@ from html import escape
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-URL = "https://conurbanstreets.com"  # cambiar cuando esté el dominio (tarjeta 38)
+URL = "https://crisoalmoniga.github.io/conurban-streets-web"  # cambiar por el dominio cuando esté (tarjeta 38)
 MAIL = "conurbanstreets@gmail.com"
 INSTAGRAM = "https://www.instagram.com/conurbanstreets/"
 TIKTOK = "https://www.tiktok.com/@conurbanstreets"
