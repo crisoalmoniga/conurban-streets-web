@@ -28,6 +28,10 @@ Opción B, Cloudflare Pages: conectar el repositorio, sin comando de build y con
 
 Cuando esté el dominio (tarjeta 38), apuntarlo al sitio y cambiar `URL` en `fuente/build.py`: la usan los links para compartir, la imagen de vista previa, el sitemap, el manifiesto y la página 404. Mientras el sitio esté en `github.io/conurban-streets-web`, los buscadores no leen el `robots.txt` (solo lo buscan en la raíz del dominio); con el dominio propio empieza a contar.
 
+## Vista previa de redes (`redes/`)
+
+Simulación del perfil de redes con las publicaciones de octubre 2026 a enero 2027, para mostrar cómo queda. No está linkeada desde la página ni entra en el sitemap, y tiene `noindex`. Es una copia liviana (videos a 540×960) de `Kit de marketing/08 Redes sociales` en Drive, donde están la versión original y el script que la genera (`fuente/vista_web.py`).
+
 ## Pendiente
 
 - Tráiler (tarjeta 51): sumar la sección cuando esté y reemplazar el aviso de la galería.
