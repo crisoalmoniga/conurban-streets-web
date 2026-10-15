@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vista previa del perfil</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#0f0f0f; --sub:#737373; --line:#dbdbdb; --chip:#efefef; --link:#00376b;
+  --acento:#35072C; --naranja:#E69B1E; --panel:#fafafa; --overlay:rgba(0,0,0,.72);
+  --ring:linear-gradient(45deg,#E69B1E,#8B150C,#6F1955,#CE96C8);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#000; --fg:#f5f5f5; --sub:#a8a8a8; --line:#262626; --chip:#262626; --link:#e0f1ff; --panel:#121212; }
+}
+:root[data-theme="dark"]{ --bg:#000; --fg:#f5f5f5; --sub:#a8a8a8; --line:#262626; --chip:#262626; --link:#e0f1ff; --panel:#121212; }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--panel);color:var(--fg);font:14px/1.4 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+svg{display:block}
+
+.aviso{max-width:470px;margin:12px auto 0;padding:10px 14px;border-radius:10px;background:#35072C;color:#E7E1C9;font-size:13px}
+@media (max-width:500px){.app{border:0;border-radius:0;margin-bottom:0}.aviso{margin:0;border-radius:0}}
+/* barra de simulación (fuera del "teléfono") */
+.sim{max-width:470px;margin:0 auto;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;font-size:13px;color:var(--sub)}
+.sim label{display:flex;align-items:center;gap:8px}
+.sim input[type=range]{width:150px;accent-color:var(--naranja)}
+.sim select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px 6px}
+.sim .fecha{color:var(--fg);font-weight:600;min-width:118px}
+
+.app{max-width:470px;margin:0 auto 40px;background:var(--bg);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:80vh}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line)}
+.top .handle{font-weight:700;font-size:20px;display:flex;align-items:center;gap:4px}
+.top .icons{display:flex;gap:18px}
+
+.head{display:flex;align-items:center;gap:22px;padding:16px 16px 4px}
+.avatar{width:86px;height:86px;border-radius:50%;padding:3px;background:var(--ring);flex:none}
+.avatar img{width:100%;height:100%;border-radius:50%;border:3px solid var(--bg);object-fit:cover;display:block}
+.stats{display:flex;flex:1;justify-content:space-around;text-align:center}
+.stats b{display:block;font-size:17px}
+.stats span{color:var(--fg);font-size:13px}
+.bio{padding:8px 16px 0;white-space:pre-line}
+.bio .nombre{font-weight:600}
+.bio .cat{color:var(--sub)}
+.bio a{color:var(--link);font-weight:600;text-decoration:none}
+.botones{display:flex;gap:6px;padding:12px 16px}
+.botones button{flex:1;background:var(--chip);border-radius:8px;padding:7px 0;font-weight:600}
+.botones button.seguir{background:#0095f6;color:#fff}
+
+.dest{display:flex;gap:14px;padding:8px 16px 14px;overflow-x:auto;scrollbar-width:none}
+.dest div{flex:none;width:68px;text-align:center;font-size:12px}
+.dest img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center;border:1px solid var(--line);padding:2px;background:var(--bg)}
+
+.tabs{display:flex;border-top:1px solid var(--line)}
+.tabs button{flex:1;display:flex;justify-content:center;padding:11px 0;color:var(--sub);border-bottom:1px solid transparent}
+.tabs button.on{color:var(--fg);border-bottom-color:var(--fg)}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.grid .t{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--chip);cursor:pointer}
+.grid.reels .t{aspect-ratio:9/16}
+.grid .t img{width:100%;height:100%;object-fit:cover;display:block}
+.grid .t .ico{position:absolute;top:7px;right:7px;color:#fff;filter:drop-shadow(0 0 3px rgba(0,0,0,.6))}
+.grid .t .vistas{position:absolute;left:7px;bottom:6px;color:#fff;font-size:12px;font-weight:600;display:flex;gap:4px;align-items:center;text-shadow:0 0 4px rgba(0,0,0,.8)}
+.grid .t.falta{border:2px dashed var(--naranja);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;color:var(--sub);font-size:12px}
+.grid .t.falta b{color:var(--fg);font-size:13px}
+.grid .t .fch{position:absolute;left:0;right:0;top:0;padding:4px 6px;font-size:11px;color:#fff;background:linear-gradient(rgba(0,0,0,.55),transparent);opacity:0;transition:opacity .15s}
+.grid .t:hover .fch,.mostrar-fechas .grid .t .fch{opacity:1}
+.vacio{padding:60px 20px;text-align:center;color:var(--sub)}
+
+/* modal de publicación */
+.modal{position:fixed;inset:0;background:var(--overlay);display:none;align-items:center;justify-content:center;z-index:10;padding:16px}
+.modal.on{display:flex}
+.post{background:var(--bg);width:100%;max-width:470px;max-height:100%;overflow-y:auto;border-radius:10px}
+.post .ph{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.post .ph img{width:32px;height:32px;border-radius:50%}
+.post .ph b{flex:1}
+.media{position:relative;background:#000}
+.media img,.media video{width:100%;display:block}
+.media.c45{aspect-ratio:4/5}
+.media.c916{aspect-ratio:9/16;max-height:72vh;margin:0 auto}
+.media.c45 img{height:100%;object-fit:cover}
+.media video{height:100%;object-fit:contain}
+.flecha{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.85);color:#000;display:flex;align-items:center;justify-content:center}
+.flecha.izq{left:8px}.flecha.der{right:8px}
+.puntos{display:flex;justify-content:center;gap:4px;padding:8px 0 0}
+.puntos i{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.puntos i.on{background:#0095f6}
+.contador{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:3px 8px;border-radius:12px}
+.acciones{display:flex;gap:14px;padding:10px 12px 4px}
+.acciones .der{margin-left:auto}
+.texto{padding:4px 12px 4px;white-space:pre-line}
+.texto .tags{color:var(--link)}
+.meta{padding:6px 12px 12px;color:var(--sub);font-size:12px}
+.nota{margin:0 12px 12px;padding:8px 10px;border-radius:8px;background:var(--chip);font-size:12px;color:var(--sub)}
+.nav{position:fixed;top:50%;transform:translateY(-50%);color:#fff;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.nav.izq{left:8px}.nav.der{right:8px}
+.cerrar{position:fixed;top:10px;right:14px;color:#fff;font-size:30px;line-height:1}
+
+/* historias */
+.hist{position:fixed;inset:0;background:#111;z-index:20;display:none;align-items:center;justify-content:center}
+.hist.on{display:flex}
+.hist .marco{position:relative;height:min(92vh,calc(100vw * 16 / 9));aspect-ratio:9/16;max-width:100vw}
+.hist img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.hist .barras{position:absolute;top:8px;left:8px;right:8px;display:flex;gap:3px}
+.hist .barras i{flex:1;height:2px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
+.hist .barras i b{display:block;height:100%;width:0;background:#fff}
+.hist .quien{position:absolute;top:18px;left:12px;display:flex;align-items:center;gap:8px;color:#fff;font-weight:600;font-size:13px}
+.hist .quien img{width:28px;height:28px;border-radius:50%}
+.hist .zona{position:absolute;top:0;bottom:0;width:35%}
+.hist .zona.izq{left:0}.hist .zona.der{right:0}
+</style>
+</head>
+<body>
+
+<div class="aviso">Vista previa interna de las publicaciones de <b>@conurbanstreets</b> (octubre 2026 a enero 2027). Simulación hecha por Lado Positivo Games; no es una página de ninguna red social.</div>
+<div class="sim">
+  <label>Ver el perfil al <input id="semana" type="range" min="1" max="13" value="13"> <span class="fecha" id="fecha"></span></label>
+  <label>Foto <select id="foto">
+    <option value="A purpura">A púrpura</option><option value="B naranja">B naranja</option><option value="C captura">C captura</option>
+  </select></label>
+  <label><input type="checkbox" id="faltan" checked> Mostrar lo que falta</label>
+  <label><input type="checkbox" id="fechas"> Fechas en la grilla</label>
+  <label>Tema <select id="tema"><option value="">Sistema</option><option value="light">Claro</option><option value="dark">Oscuro</option></select></label>
+</div>
+
+<div class="app" id="app">
+  <div class="top">
+    <div class="handle">conurbanstreets
+      <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></div>
+    <div class="icons">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </div>
+  </div>
+
+  <div class="head">
+    <button class="avatar" id="abrirHist" title="Ver historias"><img id="av" alt="Foto de perfil"></button>
+    <div class="stats">
+      <div><b id="nPubs">0</b><span>publicaciones</span></div>
+      <div><b>—</b><span>seguidores</span></div>
+      <div><b>—</b><span>seguidos</span></div>
+    </div>
+  </div>
+  <div class="bio"><span class="nombre">Conurban Streets | Juego indie</span>
+<span class="cat">Videojuego</span>
+Cyberpunk, pero del conurbano. 🔥
+Arcade de autos para PC · En desarrollo
+Demo a mediados de 2027 👇
+<a href="https://linktr.ee/conurbanstreets" target="_blank" rel="noopener">linktr.ee/conurbanstreets</a></div>
+  <div class="botones"><button class="seguir">Seguir</button><button>Mensaje</button><button>Contacto</button></div>
+  <div class="dest" id="dest"></div>
+
+  <div class="tabs">
+    <button class="on" data-tab="grid" title="Publicaciones"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></button>
+    <button data-tab="reels" title="Reels"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 8h18M8 3l3 5M14 3l3 5"/><path d="M10 11.5v5l4.5-2.5z" fill="currentColor"/></svg></button>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="modal" id="modal">
+  <button class="cerrar" id="cerrar" aria-label="Cerrar">×</button>
+  <button class="nav izq" id="ant" aria-label="Anterior"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div class="post" id="post"></div>
+  <button class="nav der" id="sig" aria-label="Siguiente"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+
+<div class="hist" id="hist">
+  <div class="marco">
+    <img id="histImg" alt="Historia">
+    <div class="barras" id="barras"></div>
+    <div class="quien"><img id="histAv" alt="">conurbanstreets</div>
+    <button class="zona izq" id="hIzq" aria-label="Anterior"></button>
+    <button class="zona der" id="hDer" aria-label="Siguiente"></button>
+  </div>
+  <button class="cerrar" id="hCerrar" aria-label="Cerrar">×</button>
+</div>
+
+<script src="datos.js"></script>
+<script>
+const D = window.DATOS;
+const $ = id => document.getElementById(id);
+const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const fechaLarga = f => { const [d,m,a] = f.split("/").map(Number); return `${d} de ${MESES[m-1]}${a !== 2026 ? " de " + a : ""}`; };
+const ICO = {
+  reel: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6a3 3 0 013-3zm4 6v7l6-3.5z"/></svg>',
+  carrusel: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 3h11a2 2 0 012 2v11a2 2 0 01-2 2H8a2 2 0 01-2-2V5a2 2 0 012-2zM4 7v12a2 2 0 002 2h12v-2H6V7z"/></svg>',
+  play: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg>',
+  corazon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg>',
+  coment: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 01-11.6 7.1L4 20l1-4.2A8 8 0 1120 12z"/></svg>',
+  enviar: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg>',
+  guardar: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-5-6 5z"/></svg>',
+  izq: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M15 5l-7 7 7 7"/></svg>',
+  der: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 5l7 7-7 7"/></svg>',
+};
+const enc = p => p.split("/").map(encodeURIComponent).join("/");
+
+let tab = "grid", visibles = [], actual = -1, foto = 0;
+function guardarPref(k, v){ try{ localStorage.setItem("vp_" + k, v); }catch(e){} }
+function leerPref(k){ try{ return localStorage.getItem("vp_" + k); }catch(e){ return null; } }
+
+function avatarSrc(){ return D.avatares[$("foto").value]; }
+
+function render(){
+  const sem = +$("semana").value, faltan = $("faltan").checked;
+  const hasta = D.pubs.filter(p => p.sem <= sem);
+  const ultima = hasta[hasta.length - 1];
+  $("fecha").textContent = "semana " + sem + " · " + fechaLarga(ultima.fecha);
+  $("av").src = $("histAv").src = avatarSrc();
+  $("nPubs").textContent = hasta.filter(p => !p.falta).length;
+  visibles = hasta.filter(p => (faltan || !p.falta) && (tab === "grid" || p.tipo === "reel")).reverse();
+  const g = $("grid"); g.className = "grid" + (tab === "reels" ? " reels" : "");
+  if (!visibles.length){ g.innerHTML = '<div class="vacio" style="grid-column:1/-1">Todavía no hay publicaciones</div>'; return; }
+  g.innerHTML = visibles.map((p, i) => p.falta
+    ? `<div class="t falta" data-i="${i}"><b>${p.id} · ${p.pieza}</b><span>Falta material</span><span>${fechaLarga(p.fecha)}</span></div>`
+    : `<div class="t" data-i="${i}"><img loading="lazy" src="${enc(p.portada)}" alt="${p.pieza}">
+        <div class="fch">${p.id} · ${fechaLarga(p.fecha)}</div>
+        ${p.tipo === "reel" ? (tab === "grid" ? `<span class="ico">${ICO.reel}</span>` : `<span class="vistas">${ICO.play} —</span>`) : p.tipo === "carrusel" ? `<span class="ico">${ICO.carrusel}</span>` : ""}
+      </div>`).join("");
+}
+
+function abrir(i){
+  actual = i; foto = 0; const p = visibles[i];
+  let media;
+  if (p.falta) media = `<div class="media c916" style="display:flex;align-items:center;justify-content:center;color:#aaa;padding:20px;text-align:center">Falta material:<br>${p.falta}</div>`;
+  else if (p.tipo === "reel") media = `<div class="media c916"><video src="${enc(p.video)}" poster="${enc(p.portada)}" autoplay muted loop playsinline controls></video></div>`;
+  else media = `<div class="media c45"><img id="fotoPost" src="${enc(p.fotos[0])}" alt="${p.pieza}">
+      ${p.fotos.length > 1 ? `<span class="contador" id="cont">1/${p.fotos.length}</span><button class="flecha izq" id="fIzq" style="display:none">${ICO.izq}</button><button class="flecha der" id="fDer">${ICO.der}</button>` : ""}</div>
+      ${p.fotos.length > 1 ? `<div class="puntos" id="puntos">${p.fotos.map((_, k) => `<i class="${k ? "" : "on"}"></i>`).join("")}</div>` : ""}`;
+  $("post").innerHTML = `
+    <div class="ph"><img src="${avatarSrc()}" alt=""><b>conurbanstreets</b><span style="color:var(--sub);font-size:12px">${p.id} · ${p.pilar}</span></div>
+    ${media}
+    <div class="acciones">${ICO.corazon}${ICO.coment}${ICO.enviar}<span class="der">${ICO.guardar}</span></div>
+    <div class="texto"><b>conurbanstreets</b> ${esc(p.texto)}\n\n<span class="tags">${esc(p.tags)}</span></div>
+    <div class="meta">${p.dia} ${fechaLarga(p.fecha)}</div>`;
+  $("modal").classList.add("on");
+  if (!p.falta && p.fotos && p.fotos.length > 1){ $("fIzq").onclick = () => mover(-1); $("fDer").onclick = () => mover(1); }
+  $("ant").style.visibility = i > 0 ? "visible" : "hidden";
+  $("sig").style.visibility = i < visibles.length - 1 ? "visible" : "hidden";
+}
+function mover(d){
+  const p = visibles[actual]; foto = Math.max(0, Math.min(p.fotos.length - 1, foto + d));
+  $("fotoPost").src = enc(p.fotos[foto]); $("cont").textContent = `${foto + 1}/${p.fotos.length}`;
+  $("fIzq").style.display = foto ? "" : "none"; $("fDer").style.display = foto < p.fotos.length - 1 ? "" : "none";
+  [...$("puntos").children].forEach((e, k) => e.classList.toggle("on", k === foto));
+}
+function cerrar(){ $("modal").classList.remove("on"); $("post").innerHTML = ""; actual = -1; }
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+// historias
+let hi = 0, ht = null;
+function hist(i){
+  hi = i; if (i < 0) hi = 0;
+  if (i >= D.historias.length) return cerrarHist();
+  $("histImg").src = enc(D.historias[hi]);
+  $("barras").innerHTML = D.historias.map((_, k) => `<i><b style="width:${k < hi ? 100 : 0}%"></b></i>`).join("");
+  const b = $("barras").children[hi].firstChild; b.style.transition = "none"; b.style.width = "0";
+  requestAnimationFrame(() => requestAnimationFrame(() => { b.style.transition = "width 5s linear"; b.style.width = "100%"; }));
+  clearTimeout(ht); ht = setTimeout(() => hist(hi + 1), 5000);
+  $("hist").classList.add("on");
+}
+function cerrarHist(){ clearTimeout(ht); $("hist").classList.remove("on"); }
+
+// eventos
+$("grid").onclick = e => { const t = e.target.closest(".t"); if (t) abrir(+t.dataset.i); };
+$("cerrar").onclick = cerrar;
+$("modal").onclick = e => { if (e.target === $("modal")) cerrar(); };
+$("ant").onclick = () => abrir(actual - 1); $("sig").onclick = () => abrir(actual + 1);
+document.onkeydown = e => {
+  if ($("hist").classList.contains("on")){ if (e.key === "Escape") cerrarHist(); if (e.key === "ArrowRight") hist(hi + 1); if (e.key === "ArrowLeft") hist(hi - 1); return; }
+  if (actual < 0) return;
+  if (e.key === "Escape") cerrar();
+  if (e.key === "ArrowRight") { const p = visibles[actual]; p.fotos && foto < p.fotos.length - 1 ? mover(1) : actual < visibles.length - 1 && abrir(actual + 1); }
+  if (e.key === "ArrowLeft") { foto > 0 ? mover(-1) : actual > 0 && abrir(actual - 1); }
+};
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b)); tab = b.dataset.tab; render();
+});
+$("abrirHist").onclick = () => hist(0);
+$("hIzq").onclick = () => hist(hi - 1); $("hDer").onclick = () => hist(hi + 1); $("hCerrar").onclick = cerrarHist;
+$("dest").innerHTML = D.destacadas.map(([n, src]) => `<div><img src="${enc(src)}" alt=""><br>${n}</div>`).join("");
+for (const id of ["semana", "foto", "faltan", "fechas", "tema"]) {
+  const v = leerPref(id), el = $(id);
+  if (v !== null) el.type === "checkbox" ? el.checked = v === "1" : el.value = v;
+  el.oninput = () => { guardarPref(id, el.type === "checkbox" ? (el.checked ? "1" : "0") : el.value); aplicar(); };
+}
+function aplicar(){
+  document.documentElement.dataset.theme = $("tema").value || "";
+  if (!$("tema").value) delete document.documentElement.dataset.theme;
+  $("app").classList.toggle("mostrar-fechas", $("fechas").checked);
+  render();
+}
+aplicar();
+</script>
+</body>
+</html>
