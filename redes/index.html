@@ -95,7 +95,8 @@ svg{display:block}
 .nota{margin:0 12px 12px;padding:8px 10px;border-radius:8px;background:var(--chip);font-size:12px;color:var(--sub)}
 .nav{position:fixed;top:50%;transform:translateY(-50%);color:#fff;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
 .nav.izq{left:8px}.nav.der{right:8px}
-.cerrar{position:fixed;top:10px;right:14px;color:#fff;font-size:30px;line-height:1}
+.cerrar{position:fixed;top:10px;right:14px;color:#fff;font-size:30px;line-height:1;z-index:2}
+@media (max-width:500px){.modal{padding:0}.post{border-radius:0;max-height:100vh}.nav{display:none}.cerrar{top:4px;right:8px;text-shadow:0 0 6px #000}}
 
 /* historias */
 .hist{position:fixed;inset:0;background:#111;z-index:20;display:none;align-items:center;justify-content:center}
@@ -266,6 +267,14 @@ $("grid").onclick = e => { const t = e.target.closest(".t"); if (t) abrir(+t.dat
 $("cerrar").onclick = cerrar;
 $("modal").onclick = e => { if (e.target === $("modal")) cerrar(); };
 $("ant").onclick = () => abrir(actual - 1); $("sig").onclick = () => abrir(actual + 1);
+// deslizar con el dedo: fotos del carrusel y publicaciones
+let tx = null;
+$("post").addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, {passive: true});
+$("post").addEventListener("touchend", e => {
+  if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if (Math.abs(dx) < 50) return;
+  document.onkeydown({key: dx < 0 ? "ArrowRight" : "ArrowLeft"});
+});
 document.onkeydown = e => {
   if ($("hist").classList.contains("on")){ if (e.key === "Escape") cerrarHist(); if (e.key === "ArrowRight") hist(hi + 1); if (e.key === "ArrowLeft") hist(hi - 1); return; }
   if (actual < 0) return;
