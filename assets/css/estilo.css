@@ -123,7 +123,10 @@ section h2 .tira { font-size: inherit; }
 .alterna { background: var(--asfalto); }
 .intro { font-size: clamp(19px, 2.4vw, 22px); max-width: 760px; margin: 0 0 36px; }
 
-.pilares { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.pilares { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+/* Seis pilares: 3 + 3, 2 + 2 + 2 o uno abajo del otro, sin huecos en la última fila. */
+@media (max-width: 900px) { .pilares { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .pilares { grid-template-columns: 1fr; } }
 .pilar {
   background: rgba(111, 25, 85, .35); border-top: 4px solid var(--naranja);
   padding: 20px; border-radius: 4px;
