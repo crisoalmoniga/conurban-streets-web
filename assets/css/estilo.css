@@ -138,6 +138,10 @@ section h2 .tira { font-size: inherit; }
 .pista img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; border-radius: 4px; }
 .pista h3 { margin: 12px 0 4px; }
 .pista p { margin: 0; color: var(--rosa); }
+.pista .etiqueta {
+  display: inline-block; vertical-align: middle; margin-left: 6px; padding: 2px 8px; border-radius: 3px;
+  background: var(--naranja); color: var(--negro); font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+}
 
 .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
 .galeria button { padding: 0; border: 0; background: none; cursor: zoom-in; }
@@ -155,6 +159,9 @@ dialog.visor button { background: none; border: 0; color: var(--crema); font: in
 .ficha { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; }
 .ficha dt { color: var(--naranja); font-weight: 700; }
 .ficha dd { margin: 0; }
+.equipo { list-style: none; margin: 0; padding: 0; }
+.equipo li + li { margin-top: 4px; }
+.equipo .rol { display: block; font-size: 14px; color: var(--rosa); text-transform: uppercase; letter-spacing: .05em; }
 
 
 .redes { display: flex; flex-wrap: wrap; gap: 12px; }

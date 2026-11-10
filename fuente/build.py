@@ -17,12 +17,13 @@ MAIL = "conurbanstreets@gmail.com"
 VERSION_CSS = hashlib.md5((RAIZ / "assets" / "css" / "estilo.css").read_bytes()).hexdigest()[:8]
 INSTAGRAM = "https://www.instagram.com/conurbanstreets/"
 TIKTOK = "https://www.tiktok.com/@conurbanstreets"
-LINKTREE = "https://linktr.ee/conurbanstreets"
 
 CAPTURAS = [
     "01_escalada_atardecer", "02_escalada_reno", "03_autodromo_turbinas", "04_autodromo_ciento47",
     "05_autodromo_neon", "06_caminonegro_curva", "07_caminonegro_autopista", "08_caminonegro_chevrones",
-    "09_docksud_usina", "10_docksud_puente", "11_mercado_nave", "12_mercado_turbinas",
+    "17_caminonegro_colectivo", "09_docksud_usina", "10_docksud_puente", "18_docksud_laboca",
+    "11_mercado_nave", "12_mercado_turbinas", "13_menemista_largada", "14_menemista_favela",
+    "15_menemista_subida", "16_menemista_tunel",
 ]
 
 TEXTOS = {
@@ -30,45 +31,52 @@ TEXTOS = {
         "lang": "es-AR", "base": "", "otro": "en/", "otro_txt": "EN",
         "og_locale": "es_AR", "og_locale_otro": "en_US",
         "og_alt": "Logo de Conurban Streets sobre un auto tuneado con fuego en una pista del conurbano",
-        "titulo": "Conurban Streets – Carreras arcade en el conurbano",
-        "desc": "Carreras arcade para PC en un conurbano bonaerense retrofuturista. Cyberpunk, pero del conurbano. Próximamente en Steam.",
+        "titulo": "Conurban Streets – Carreras arcade por las calles de Buenos Aires",
+        "desc": "Carreras arcade para PC por las calles de Buenos Aires, de la Ciudad al conurbano, con clásicos argentinos y un futuro atado con alambre. Lanzamiento previsto para 2027.",
         "nav": ["El juego", "Galería", "Prensa", "Colaborá"],
-        "lema": "Cyberpunk, pero del conurbano.",
-        "bajada": "Carreras arcade para PC · Próximamente en Steam",
+        "lema": "El futuro, pero acá nomás.",
+        "bajada": "Carreras arcade para PC · Próximamente",
         "b_redes": "Seguinos en Instagram", "b_prensa": "Prensa",
         "juego_t": "Qué es",
-        "intro": "Conurban Streets es un arcade de autos en el conurbano bonaerense, reimaginado como un futuro cyberpunk atado con alambre. Nada de megaciudades cromadas: autos clásicos oxidados y calles que casi se pueden oler.",
+        "intro": "Conurban Streets es un arcade de autos por las calles de Buenos Aires, de la Ciudad al conurbano. Arrancás con fierros de los de siempre, clásicos argentinos gastados y sobre ruedas, y carrera a carrera vas por el premio mayor: autos rearmados con turbinas que flotan sobre el asfalto. Nada de megaciudades cromadas: un futuro atado con alambre y calles que casi se pueden oler. El lanzamiento está pensado para 2027.",
         "pilares": [
-            ("Fierros nacionales", "El Reno Doce, el Ciento47, el Cinco Cero Cuatro y la Ce Diez: clásicos argentinos oxidados y rearmados con lo que había. Algunos flotan con turbinas; otros siguen con las ruedas de siempre."),
-            ("Lugares que conocés", "Circuitos inspirados en lugares reales del conurbano, en clave futurista improvisada."),
-            ("Carreras cortas y caóticas", "Manejo arcade para agarrar y jugar, rivales que pelean cada curva y muros que no perdonan."),
-            ("Ganá y destrabá", "Cada circuito que ganás te abre un fierro nuevo en el garage, y cada victoria le suma motor, dirección o nitro al auto con el que corrés."),
-            ("La calle no espera", "Colectivos que paran donde quieren, camiones con acoplado y alguna piedra que cae del puente peatonal y te raja el parabrisas."),
-            ("Humor de barrio", "Carteles, murales y lugares emblemáticos llenos de guiños para quien creció en el conurbano."),
+            ("Los fierros de siempre", "El Renault 12, el Fiat 147, el Peugeot 504 y la Chevrolet C10: clásicos argentinos gastados y rearmados con lo que había, cada uno con su manejo. Todos andan sobre ruedas, hasta que te ganás el premio mayor: el 12 con turbinas, que flota."),
+            ("Lugares que conocés", "Pistas inspiradas en toda Buenos Aires, en las calles por donde caminás todos los días: de La Boca y el Autódromo a Escalada y el Mercado Central, en clave futurista improvisada."),
+            ("Carreras cortas y caóticas", "Manejo arcade para agarrar y jugar, tres dificultades, nitro para el último empujón, rivales que pelean cada curva y muros que no perdonan."),
+            ("Armá tu colección", "Cada carrera suma puntos y cada pista que ganás destraba un fierro nuevo. Con los puntos comprás piezas de motor, dirección y nitro, y tuneás cada auto a mano en el taller."),
+            ("La calle no espera", "Bondis que frenan en cada parada, semáforos, camiones con acoplado y piedras que caen de los puentes peatonales y te rajan el parabrisas."),
+            ("Humor de barrio", "Carteles, murales y lugares de siempre, llenos de guiños para quien se crió de un lado o del otro de la General Paz. Con las calles que ya conocés y música de artistas urbanos de acá nomás."),
         ],
         "pistas_t": "Los circuitos",
         "pistas": [
             ("02_escalada_reno", "Remedios de Escalada", "Al lado de las vías del tren, entre esculturas y carteles de barrio."),
             ("03_autodromo_turbinas", "Autódromo del Parque", "El autódromo de noche, con la ciudad de fondo."),
-            ("07_caminonegro_autopista", "Camino Negro", "Barrio, Riachuelo y el viaducto de Puente La Noria."),
+            ("07_caminonegro_autopista", "Camino Negro", "Barrio, Riachuelo, el viaducto de Puente La Noria y puentes peatonales desde donde te tiran piedras."),
             ("09_docksud_usina", "La Boca y Dock Sud", "Por la ribera del Riachuelo, entre la Usina del Arte y los puentes de hierro."),
             ("11_mercado_nave", "Mercado Central", "De madrugada, entre camiones y por adentro de las naves."),
+            ("14_menemista_favela", "Menemista", "El premio para quien lo gana todo: las subidas de una favela de Río, el túnel bajo el morro y el Cristo mirando desde arriba.", "Desbloqueable"),
         ],
         "galeria_t": "Galería",
         "galeria_nota": "Capturas del juego en desarrollo. El tráiler llega pronto.",
         "alt": [
-            "Un Ciento47 con los faros encendidos bajo el cielo rojo del atardecer en Escalada",
-            "El Reno Doce de frente en una avenida de Escalada, al atardecer",
-            "El Reno Doce con las turbinas a fondo junto al vallado rojo y blanco del Autódromo",
-            "Un Ciento47 verde con turbinas en una curva del Autódromo",
+            "Un Fiat 147 con los faros encendidos bajo el cielo rojo del atardecer en Escalada",
+            "El Renault 12 de frente en una avenida de Escalada, al atardecer",
+            "El Renault 12 con las turbinas a fondo junto al vallado rojo y blanco del Autódromo",
+            "Un Fiat 147 verde con turbinas en una curva del Autódromo",
             "Flechas de neón sobre la pista del Autódromo",
             "Dos autos en una curva cerrada de Camino Negro, vistos desde un dron",
-            "El Reno Doce en la autopista de Camino Negro, entre torres de alta tensión",
-            "El Reno Doce con turbinas entre carteles de curva en Camino Negro",
+            "El Renault 12 en la autopista de Camino Negro, entre torres de alta tensión",
+            "El Renault 12 con turbinas entre carteles de curva en Camino Negro",
+            "Un colectivo de la 160 frena en el semáforo bajo un pórtico de neón en Camino Negro",
             "La Usina del Arte iluminada de noche en Dock Sud, con un auto en la pista",
             "Cruzando el puente de hierro rojo sobre el Riachuelo",
+            "Un auto entre conventillos de colores en La Boca, con un colectivo de frente",
             "La pista entra a una nave del Mercado Central",
-            "El Reno Doce con las turbinas a fondo en el Mercado Central",
+            "El Renault 12 con las turbinas a fondo en el Mercado Central",
+            "La largada de la Menemista al atardecer, con palmeras y el Cristo sobre el morro",
+            "Bajada entre casas de ladrillo a la vista, cables y carteles de curva en la favela",
+            "Subida por la favela con el guardrail verde y amarillo",
+            "Saliendo del túnel bajo el morro, con la favela iluminada de fondo",
         ],
         "cerrar": "Cerrar", "saltar": "Saltar al contenido", "menu": "Abrir el menú",
         "prensa_t": "Prensa",
@@ -76,9 +84,19 @@ TEXTOS = {
         "ficha": [
             ("Desarrollador", "Lado Positivo Games (Buenos Aires, Argentina)"),
             ("Género", "Carreras arcade 3D"),
-            ("Plataforma", "PC (Steam)"),
-            ("Fechas", "Demo a mediados de 2027 · lanzamiento a fines de 2027"),
-            ("Equipo", "Cristian Almoniga (dirección y programación) · Romina Wendling (diseño gráfico)"),
+            ("Plataforma", "PC"),
+            ("Lanzamiento", "Pensado para 2027"),
+            # Igual que los créditos del juego (Assets/_Project/Resources/Creditos.txt)
+            ("Equipo", [
+                ("Dirección y game design", "Cristian Almóniga"),
+                ("Chief Poronguer Officer", "Pablo Sekine"),
+                ("Programación", "Cristian Almóniga · Mayra"),
+                ("Diseño gráfico", "Romina Wendling"),
+                ("Modelado 3D", "Cristian Almóniga · Héctor Donoso"),
+                ("Audio", "Pablo Sekine · Lautaro Dichio"),
+                ("Música", "Chebrolet · Hocus Pocus"),
+                ("Testing", "Jota Barbagallo"),
+            ]),
         ],
         "b_kit": "Pedir el press kit",
         "kit_det": "Te lo mandamos por mail: logo, key art, capturas en alta resolución y descripciones en castellano e inglés.",
@@ -96,45 +114,52 @@ TEXTOS = {
         "lang": "en", "base": "../", "otro": "../", "otro_txt": "ES",
         "og_locale": "en_US", "og_locale_otro": "es_AR",
         "og_alt": "Conurban Streets logo over a tuned car shooting flames on a suburban race track",
-        "titulo": "Conurban Streets – Arcade racing in the Buenos Aires suburbs",
-        "desc": "Arcade racing for PC in a retro-futuristic Buenos Aires suburb. Cyberpunk, but from the conurbano. Coming soon to Steam.",
+        "titulo": "Conurban Streets – Arcade racing through the streets of Buenos Aires",
+        "desc": "Arcade racing for PC through the streets of Buenos Aires, from the city to its suburbs, with Argentine classics and a future held together with wire. Planned for release in 2027.",
         "nav": ["The game", "Gallery", "Press", "Collaborate"],
-        "lema": "Cyberpunk, but from the conurbano.",
-        "bajada": "Arcade racing for PC · Coming soon to Steam",
+        "lema": "The future, right around the corner.",
+        "bajada": "Arcade racing for PC · Coming soon",
         "b_redes": "Follow us on Instagram", "b_prensa": "Press",
         "juego_t": "The game",
-        "intro": "Conurban Streets is an arcade racer set in the suburbs of Buenos Aires, reimagined as a scrappy cyberpunk future. No chrome megacities here: just rusty classics and streets you can almost smell.",
+        "intro": "Conurban Streets is an arcade racer through the streets of Buenos Aires, from the city to its suburbs. You start out in everyday rides, beaten-up Argentine classics on good old wheels, and race by race you chase the grand prize: cars rebuilt with thrusters that hover over the asphalt. No chrome megacities here: just a future held together with wire and streets you can almost smell. Release is planned for 2027.",
         "pilares": [
-            ("Fierros nacionales", "The Reno Doce, the Ciento47, the Cinco Cero Cuatro and the Ce Diez pickup: classic Argentine cars, rusted and rebuilt with whatever was lying around. Some hover on thrusters; others still roll on good old wheels."),
-            ("Places you know", "Circuits inspired by real places in the Buenos Aires suburbs, in an improvised retro-futuristic key."),
-            ("Short, chaotic races", "Pick-up-and-play arcade handling, rivals that fight for every corner and walls that bite back."),
-            ("Win and unlock", "Every circuit you win opens up a new ride in the garage, and every victory adds engine, handling or nitro to the car you race with."),
-            ("The street won't wait", "Buses that stop wherever they please, trucks hauling trailers and the odd rock dropped from a footbridge that cracks your windshield."),
-            ("Barrio humor", "Street signs, murals and local landmarks full of references for anyone who grew up in the conurbano."),
+            ("Good old rides", "The Renault 12, the Fiat 147, the Peugeot 504 and the Chevrolet C10 pickup: classic Argentine cars, beaten up and rebuilt with whatever was lying around, each with its own handling. They all roll on good old wheels, until you earn the grand prize: the 12 on thrusters, hovering."),
+            ("Places you know", "Tracks inspired by all of Buenos Aires, on the streets you walk every day: from La Boca and the Autódromo to Escalada and the Mercado Central, in an improvised retro-futuristic key."),
+            ("Short, chaotic races", "Pick-up-and-play arcade handling, three difficulty levels, nitro for that last push, rivals that fight for every corner and walls that bite back."),
+            ("Build your collection", "Every race earns points and every circuit you win unlocks a new ride. Spend the points on engine, handling and nitro parts, then tune each car by hand in the workshop."),
+            ("The street won't wait", "City buses pulling over at every stop, traffic lights, trucks hauling trailers and rocks dropped from footbridges that crack your windshield."),
+            ("Barrio humor", "Street signs, murals and local landmarks full of nods for anyone who grew up on either side of the General Paz. With streets you already know and music by local urban artists from right around the corner."),
         ],
         "pistas_t": "The circuits",
         "pistas": [
             ("02_escalada_reno", "Remedios de Escalada", "Next to the train line, among sculptures and neighborhood signs."),
             ("03_autodromo_turbinas", "Autódromo del Parque", "The speedway at night, with the city skyline behind."),
-            ("07_caminonegro_autopista", "Camino Negro", "Narrow streets, the Riachuelo river and the Puente La Noria overpass."),
+            ("07_caminonegro_autopista", "Camino Negro", "Narrow streets, the Riachuelo river, the Puente La Noria overpass and footbridges where someone's waiting with rocks."),
             ("09_docksud_usina", "La Boca and Dock Sud", "Along the Riachuelo riverside, past the Usina del Arte and the iron bridges."),
             ("11_mercado_nave", "Mercado Central", "Before dawn, between trucks and right through the market halls."),
+            ("14_menemista_favela", "Menemista", "The prize for winning it all: the steep streets of a Rio favela, the tunnel under the hill and Christ the Redeemer watching from above.", "Unlockable"),
         ],
         "galeria_t": "Gallery",
         "galeria_nota": "Screenshots from the game in development. Trailer coming soon.",
         "alt": [
-            "A Ciento47 with its headlights on under a red sunset sky in Escalada",
-            "The Reno Doce head-on along an avenue in Escalada at dusk",
-            "The Reno Doce at full thrust next to the red-and-white barriers of the speedway",
-            "A green Ciento47 with thrusters through a speedway corner",
+            "A Fiat 147 with its headlights on under a red sunset sky in Escalada",
+            "The Renault 12 head-on along an avenue in Escalada at dusk",
+            "The Renault 12 at full thrust next to the red-and-white barriers of the speedway",
+            "A green Fiat 147 with thrusters through a speedway corner",
             "Neon arrows over the speedway track",
             "Two cars in a tight corner in Camino Negro, seen from a drone",
-            "The Reno Doce on the Camino Negro highway, between high-voltage towers",
-            "The Reno Doce with thrusters between curve signs in Camino Negro",
+            "The Renault 12 on the Camino Negro highway, between high-voltage towers",
+            "The Renault 12 with thrusters between curve signs in Camino Negro",
+            "A 160 bus stopping at the traffic light under a neon gantry in Camino Negro",
             "The Usina del Arte lit up at night in Dock Sud, with a car on the track",
             "Crossing the red iron bridge over the Riachuelo",
+            "A car between colorful tenement houses in La Boca, with a bus coming the other way",
             "The track heads into one of the Mercado Central halls",
-            "The Reno Doce at full thrust in the Mercado Central",
+            "The Renault 12 at full thrust in the Mercado Central",
+            "The Menemista starting line at sunset, with palm trees and Christ the Redeemer on the hill",
+            "Downhill between bare-brick houses, power lines and curve signs in the favela",
+            "Climbing through the favela along the green-and-yellow guardrail",
+            "Coming out of the tunnel under the hill, with the favela lit up behind",
         ],
         "cerrar": "Close", "saltar": "Skip to content", "menu": "Open menu",
         "prensa_t": "Press",
@@ -142,9 +167,18 @@ TEXTOS = {
         "ficha": [
             ("Developer", "Lado Positivo Games (Buenos Aires, Argentina)"),
             ("Genre", "3D arcade racing"),
-            ("Platform", "PC (Steam)"),
-            ("Dates", "Demo mid-2027 · launch late 2027"),
-            ("Team", "Cristian Almoniga (direction & programming) · Romina Wendling (graphic design)"),
+            ("Platform", "PC"),
+            ("Release", "Planned for 2027"),
+            ("Team", [
+                ("Direction & game design", "Cristian Almóniga"),
+                ("Chief Poronguer Officer", "Pablo Sekine"),
+                ("Programming", "Cristian Almóniga · Mayra"),
+                ("Graphic design", "Romina Wendling"),
+                ("3D modeling", "Cristian Almóniga · Héctor Donoso"),
+                ("Audio", "Pablo Sekine · Lautaro Dichio"),
+                ("Music", "Chebrolet · Hocus Pocus"),
+                ("Testing", "Jota Barbagallo"),
+            ]),
         ],
         "b_kit": "Request the press kit",
         "kit_det": "We'll email it to you: logo, key art, high-res screenshots and descriptions in Spanish and English.",
@@ -163,6 +197,19 @@ TEXTOS = {
 
 def mailto(asunto):
     return f"mailto:{MAIL}?subject={escape(asunto).replace(' ', '%20')}"
+
+
+def etiqueta(texto):
+    """Cartelito al lado del nombre de una pista (por ejemplo, "Desbloqueable")."""
+    return f' <span class="etiqueta">{escape(texto)}</span>'
+
+
+def dato_ficha(valor):
+    """Un texto, o una lista de (rol, nombres) como la del equipo: un rol por renglón."""
+    if isinstance(valor, str):
+        return escape(valor)
+    filas = "".join(f'<li><span class="rol">{escape(r)}</span> {escape(n)}</li>' for r, n in valor)
+    return f'<ul class="equipo">{filas}</ul>'
 
 
 def datos_estructurados(t, canon):
@@ -245,12 +292,13 @@ def pagina(t):
         f'<article class="pilar"><h3>{e(h)}</h3><p>{e(p)}</p></article>' for h, p in t["pilares"])
     pistas = "\n".join(
         f'<article class="pista"><img src="{b}assets/img/{img}_800.webp" alt="" loading="lazy" width="800" height="450">'
-        f'<h3>{e(n)}</h3><p>{e(d)}</p></article>' for img, n, d in t["pistas"])
+        f'<h3>{e(n)}{"".join(etiqueta(x) for x in extra)}</h3><p>{e(d)}</p></article>'
+        for img, n, d, *extra in t["pistas"])
     galeria = "\n".join(
         f'<button type="button" data-grande="{b}assets/img/{c}_1600.webp" aria-label="{e(a)}">'
         f'<img src="{b}assets/img/{c}_800.webp" alt="{e(a)}" loading="lazy" width="800" height="450"></button>'
         for c, a in zip(CAPTURAS, t["alt"]))
-    ficha = "\n".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in t["ficha"])
+    ficha = "\n".join(f"<dt>{e(k)}</dt><dd>{dato_ficha(v)}</dd>" for k, v in t["ficha"])
     n = t["nav"]
     canon = URL + ("/" if t["lang"] != "en" else "/en/")
     return f"""<!doctype html>
@@ -381,7 +429,6 @@ def pagina(t):
     <div class="redes">
       <a class="boton" href="{INSTAGRAM}" rel="noopener" target="_blank">Instagram</a>
       <a class="boton" href="{TIKTOK}" rel="noopener" target="_blank">TikTok</a>
-      <a class="boton secundario" href="{LINKTREE}" rel="noopener" target="_blank">Discord y más</a>
     </div>
   </div>
 </section>
@@ -426,7 +473,7 @@ def pagina(t):
 def main():
     (RAIZ / "index.html").write_text(pagina(TEXTOS["es"]), encoding="utf-8")
     (RAIZ / "en").mkdir(exist_ok=True)
-    en = pagina(TEXTOS["en"]).replace("Discord y más", "Discord & more")
+    en = pagina(TEXTOS["en"])
     (RAIZ / "en" / "index.html").write_text(en, encoding="utf-8")
     extras()
     print("index.html, en/index.html, 404.html, site.webmanifest, robots.txt y sitemap.xml generados")

@@ -1,7 +1,7 @@
 {
   "name": "Conurban Streets",
   "short_name": "Conurban",
-  "description": "Carreras arcade para PC en un conurbano bonaerense retrofuturista. Cyberpunk, pero del conurbano. Próximamente en Steam.",
+  "description": "Carreras arcade para PC por las calles de Buenos Aires, de la Ciudad al conurbano, con clásicos argentinos y un futuro atado con alambre. Lanzamiento previsto para 2027.",
   "start_url": "/conurban-streets-web/",
   "scope": "/conurban-streets-web/",
   "display": "browser",
