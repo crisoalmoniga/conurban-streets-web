@@ -89,14 +89,14 @@ TEXTOS = {
         "prensa_t": "Prensa",
         "prensa_intro": "¿Escribís sobre juegos o hacés contenido? Escribinos y te mandamos el press kit o una build para probar.",
         "ficha": [
-            ("Desarrollador", "Lado Positivo Games (Buenos Aires, Argentina)"),
+            ("Desarrollador", "Lado Positivo (Buenos Aires, Argentina)"),
             ("Género", "Carreras arcade 3D"),
             ("Plataforma", "PC"),
             ("Lanzamiento", "Pensado para 2027"),
             # Igual que los créditos del juego (Assets/_Project/Resources/Creditos.txt)
             ("Equipo", [
                 ("Dirección y game design", "Cristian Almóniga"),
-                ("Producción", "Cristian Almóniga · Luciana Cardiello"),
+                ("Business developer", "Luciana Cardiello"),
                 ("Chief Poronguer Officer", "Pablo Sekine"),
                 ("Programación", "Cristian Almóniga · Mayra Chaves"),
                 ("Diseño gráfico", "Romina Wendling"),
@@ -104,7 +104,6 @@ TEXTOS = {
                 ("Audio", "Pablo Sekine · Lautaro Dichio"),
                 ("Música", "Chebrolet · Hocus Pocus"),
                 ("Testing", "Jota Barbagallo"),
-                ("Marketing y redes", "Luciana Cardiello"),
             ]),
         ],
         "b_kit": "Pedir el press kit",
@@ -117,7 +116,7 @@ TEXTOS = {
         "sumate_t": "¿Querés colaborar?",
         "sumate_intro": "Conurban Streets es un proyecto indie que se arma a pulmón y a distancia. Si te copa el juego y tenés ganas de darnos una mano, escribinos y charlamos.",
         "asunto_sumate": "Quiero colaborar – Conurban Streets",
-        "pie": "© 2026 Lado Positivo Games. Conurban Streets está en desarrollo.",
+        "pie": "© 2026 Lado Positivo. Conurban Streets está en desarrollo.",
     },
     "en": {
         "lang": "en", "base": "../", "otro": "../", "otro_txt": "ES",
@@ -180,13 +179,13 @@ TEXTOS = {
         "prensa_t": "Press",
         "prensa_intro": "Writing about games or making content? Get in touch and we'll send you the press kit or a build to try.",
         "ficha": [
-            ("Developer", "Lado Positivo Games (Buenos Aires, Argentina)"),
+            ("Developer", "Lado Positivo (Buenos Aires, Argentina)"),
             ("Genre", "3D arcade racing"),
             ("Platform", "PC"),
             ("Release", "Planned for 2027"),
             ("Team", [
                 ("Direction & game design", "Cristian Almóniga"),
-                ("Production", "Cristian Almóniga · Luciana Cardiello"),
+                ("Business developer", "Luciana Cardiello"),
                 ("Chief Poronguer Officer", "Pablo Sekine"),
                 ("Programming", "Cristian Almóniga · Mayra Chaves"),
                 ("Graphic design", "Romina Wendling"),
@@ -194,7 +193,6 @@ TEXTOS = {
                 ("Audio", "Pablo Sekine · Lautaro Dichio"),
                 ("Music", "Chebrolet · Hocus Pocus"),
                 ("Testing", "Jota Barbagallo"),
-                ("Marketing & social media", "Luciana Cardiello"),
             ]),
         ],
         "b_kit": "Request the press kit",
@@ -207,7 +205,7 @@ TEXTOS = {
         "sumate_t": "Want to collaborate?",
         "sumate_intro": "Conurban Streets is an indie project, built with heart and from afar. If you dig the game and feel like lending a hand, drop us a line and let's talk.",
         "asunto_sumate": "I want to collaborate – Conurban Streets",
-        "pie": "© 2026 Lado Positivo Games. Conurban Streets is in development.",
+        "pie": "© 2026 Lado Positivo. Conurban Streets is in development.",
     },
 }
 
@@ -243,7 +241,7 @@ def datos_estructurados(t, canon):
         "gamePlatform": "PC",
         "operatingSystem": "Windows",
         "playMode": "SinglePlayer",
-        "author": {"@type": "Organization", "name": "Lado Positivo Games", "email": MAIL},
+        "author": {"@type": "Organization", "name": "Lado Positivo", "email": MAIL},
         "sameAs": [INSTAGRAM, TIKTOK],
     }
     return json.dumps(datos, ensure_ascii=False)
